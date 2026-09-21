@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Học Văn Cùng AI - Tạo Đề, Chấm Bài & Gửi Thư Tự Động</title>
+<title>Học Văn Cùng AI - Đăng Nhập Quản Trị & Tạo Đề Tự Động</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(135deg,#f0f4ff,#fff5f8);color:#172033;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.card{width:min(800px,100%);background:#fff;border-radius:24px;padding:30px;box-shadow:0 20px 60px #1d4ed81c}
+.card{width:min(900px,100%);background:#fff;border-radius:24px;padding:30px;box-shadow:0 20px 60px #1d4ed81c}
 h1{margin:0 0 8px;font-size:24px;color:#1e3a8a}p{color:#667085;margin:0 0 20px;font-size:14px}
 label{display:block;font-weight:700;margin:12px 0 6px;font-size:14px}
 input,select,textarea{width:100%;padding:12px 14px;border:1px solid #d8dee9;border-radius:12px;font-size:14px;outline:none}
@@ -15,26 +15,29 @@ button{width:100%;margin-top:20px;padding:14px;border:0;border-radius:12px;backg
 button:disabled{opacity:.6;cursor:not-allowed}
 .msg{margin-top:14px;padding:12px;border-radius:10px;display:none;font-size:14px}.ok{background:#ecfdf3;color:#087443}.err{background:#fff1f2;color:#be123c}
 .ai-box{background:#f8fafc;border-left:4px solid #2563eb;padding:14px;border-radius:0 12px 12px 0;margin-top:14px;font-size:14px;color:#334155}
-.admin{display:none}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.logout{width:auto;margin:0;padding:8px 12px;background:#475467}
-table{width:100%;border-collapse:collapse;margin-top:15px;font-size:12px}th,td{padding:9px 6px;border-bottom:1px solid #eee;text-align:left}th{background:#f8fafc}
+.admin-view{display:none}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.logout{width:auto;margin:0;padding:8px 12px;background:#475467}
+table{width:100%;border-collapse:collapse;margin-top:15px;font-size:11px}th,td{padding:8px 6px;border-bottom:1px solid #eee;text-align:left}th{background:#f8fafc}
 .actions{display:flex;gap:8px;margin-top:15px}.actions button{margin:0}.secondary{background:#475467}
 .btn-sm{padding:5px 8px;font-size:11px;width:auto;border-radius:6px;margin:0}
 .btn-danger{background:#dc2626}
 .row-group{display:flex;gap:10px}
-.row-group button{margin-top:0;width:180px}
+.row-group button{margin-top:0;width:190px;background:#0d9488}
+.admin-link-box{text-align:center;margin-top:15px}
+.admin-link-box a{color:#2563eb;font-size:13px;text-decoration:none;font-weight:bold}
+.admin-link-box a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
 <div class="card">
-  <!-- Giao diện Học viên & Kinh doanh -->
+  <!-- Giao diện Học viên nộp bài -->
   <section id="formView">
-    <h1 id="formTitle">✍️ Tạo Đề, Chấm Bài & Gửi Thư Cùng AI</h1>
-    <p>Hệ thống tự động tạo đề, phân tích bài văn và gửi thư nhận xét chi tiết qua email cho bạn.</p>
+    <h1 id="formTitle">✍️ Luyện Văn Cùng AI & Đề Thi Mới Mỗi Ngày</h1>
+    <p>Chọn khối lớp, bấm sinh đề tự động, nộp bài để nhận điểm số và thư nhận xét chi tiết qua email.</p>
     <form id="form">
       <label>Họ và tên học viên</label>
-      <input id="name" required placeholder="Nhập họ và tên của bạn">
+      <input id="name" required placeholder="Nhập họ và tên đầy đủ của bạn">
 
-      <label>Email nhận xét từ AI (Hệ thống sẽ gửi thư kết quả tự động)</label>
+      <label>Email nhận kết quả từ AI</label>
       <input id="email" type="email" required placeholder="vidu@gmail.com">
 
       <label>Khối lớp</label>
@@ -45,51 +48,75 @@ table{width:100%;border-collapse:collapse;margin-top:15px;font-size:12px}th,td{p
         <option value="Lớp 12">Lớp 12 (Luyện thi Đại học)</option>
       </select>
 
-      <label>Gói dịch vụ / Khóa học kinh doanh</label>
+      <label>Gói dịch vụ kinh doanh</label>
       <select id="packageType" required>
         <option value="Gói Trải Nghiệm Miễn Phí">Gói Trải Nghiệm Miễn Phí (Chấm 3 bài/tháng)</option>
         <option value="Gói Chuyên Sâu 9+ (199k)">Gói Chuyên Sâu 9+ (199.000đ - Không giới hạn)</option>
         <option value="Gói VIP 1 kèm 1 với AI (499k)">Gói VIP 1 kèm 1 với AI (499.000đ - Kèm lộ trình riêng)</option>
       </select>
 
-      <label>Đề bài (AI có thể tự động tạo hoặc bạn tự nhập)</label>
+      <label>Đề bài (Tự động thay đổi mới sau mỗi lần bấm)</label>
       <div class="row-group">
-        <input id="examTopic" required placeholder="Bấm nút bên cạnh để AI tạo đề tự động hoặc nhập đề vào đây...">
-        <button type="button" class="secondary" onclick="autoGeneratePrompt()">🤖 AI Tạo Đề</button>
+        <input id="examTopic" required placeholder="Bấm nút bên cạnh để AI tạo đề mới...">
+        <button type="button" onclick="autoGeneratePrompt()">✨ AI Tạo Đề Mới</button>
       </div>
 
       <label>Bài làm của học viên</label>
       <textarea id="content" rows="4" required placeholder="Dán bài văn nghị luận hoặc phân tích của bạn vào đây..."></textarea>
 
       <div class="ai-box" id="aiSuggestion">
-        🤖 <b>Trạng thái:</b> Sau khi nộp, AI sẽ chấm điểm và gửi ngay một bản nhận xét chi tiết vào Email của bạn đồng thời lưu vào hệ thống quản trị.
+        🤖 <b>Trạng thái:</b> Hệ thống sẵn sàng tạo đề thông minh và gửi thư nhận xét tự động ngay khi bạn nộp bài.
       </div>
 
       <button id="submitBtn">NỘP BÀI, CHẤM ĐIỂM & GỬI THƯ</button>
       <div id="msg" class="msg"></div>
     </form>
+
+    <div class="admin-link-box">
+      <a href="#" onclick="openAdminLogin(event)">🔐 Đăng nhập khu vực Quản trị viên (Admin)</a>
+    </div>
   </section>
 
-  <!-- Giao diện Đăng nhập Quản trị Admin -->
+  <!-- Giao diện Đăng nhập Quản trị -->
   <section id="loginView" style="display:none">
-    <h1>Khu vực Quản trị Viên</h1><p>Nhập mật khẩu quản trị để xem danh sách học viên và đơn hàng kinh doanh.</p>
-    <input id="adminPass" type="password" placeholder="Mật khẩu admin">
-    <button onclick="login()">ĐĂNG NHẬP QUẢN TRỊ</button>
+    <h1>Đăng Nhập Quản Trị Viên</h1>
+    <p>Nhập mật khẩu quản trị để xem danh sách lịch sử làm bài, điểm số và nhận xét của học viên.</p>
+    <label>Mật khẩu quản trị</label>
+    <input id="adminPass" type="password" placeholder="Nhập mật khẩu admin...">
+    <button onclick="loginAdmin()">XÁC NHẬN ĐĂNG NHẬP</button>
+    <button class="secondary" onclick="backToHome()" style="margin-top:10px">Quay lại trang học viên</button>
     <div id="loginMsg" class="msg"></div>
   </section>
 
-  <!-- Giao diện Quản trị (Admin) -->
-  <section id="adminView" class="admin">
-    <div class="top"><div><h1>Quản Trị Hệ Thống</h1><p>Quản lý học viên, gói cước kinh doanh và kết quả chấm bài</p></div><button class="logout" onclick="logout()">Thoát</button></div>
-    <div class="actions">
-      <button class="secondary" onclick="loadData()">Làm mới</button>
-      <button class="secondary" onclick="exportCSV()">Xuất file CSV</button>
-      <button onclick="resetFormToCreate()">+ Thêm mới</button>
+  <!-- Giao diện Bảng Quản trị (Admin Dashboard) -->
+  <section id="adminView" class="admin-view">
+    <div class="top">
+      <div>
+        <h1>Quản Trị Hệ Thống</h1>
+        <p>Quản lý toàn bộ danh sách lượt làm bài, số điểm, thời gian và nhận xét của từng học viên</p>
+      </div>
+      <button class="logout" onclick="logoutAdmin()">Đăng xuất</button>
     </div>
-    <div style="overflow:auto">
+    <div class="actions">
+      <button class="secondary" onclick="loadAdminData()">Làm mới dữ liệu</button>
+      <button class="secondary" onclick="exportCSV()">Xuất file Excel/CSV</button>
+      <button onclick="backToHome()">Về trang nộp bài</button>
+    </div>
+    <div style="overflow:auto; max-height:400px">
       <table>
-        <thead><tr><th>Học viên</th><th>Email</th><th>Lớp</th><th>Gói cước</th><th>Đề bài</th><th>Kết quả AI chấm & Nhận xét</th><th>Thời gian</th><th>Thao tác</th></tr></thead>
-        <tbody id="rows"></tbody>
+        <thead>
+          <tr>
+            <th>Học viên</th>
+            <th>Email</th>
+            <th>Lớp</th>
+            <th>Gói cước</th>
+            <th>Đề bài</th>
+            <th>Điểm & Nhận xét AI</th>
+            <th>Thời gian</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="adminRows"></tbody>
       </table>
     </div>
   </section>
@@ -97,27 +124,28 @@ table{width:100%;border-collapse:collapse;margin-top:15px;font-size:12px}th,td{p
 
 <script>
 // ===== DÁN LINK WEB APP GOOGLE APPS SCRIPT CỦA BẠN VÀO ĐÂY =====
-const API_URL = "https://script.google.com/macros/s/AKfycbw9prsYjDCBKsep7E9vU13xO8IJzEYTKTkOTwE62EksNtL3veM_dzQ_PPrtavagXrcu5g/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxNzw9OnPqSUDSQRWZNgFUMyczy5zIqYx1kizm3sTfwsKrS6VhD557L8Zg5D9hgIC_NkA/exec";
 const ADMIN_PASSWORD = "Tuanvy2009@";
 
 const $ = id => document.getElementById(id);
 function showMsg(el,text,ok=false){el.textContent=text;el.className="msg "+(ok?"ok":"err");el.style.display="block"}
 
-// Tính năng AI tự động tạo đề
+// Tính năng AI tự động tạo đề mới hoàn toàn
 async function autoGeneratePrompt() {
   const grade = $("grade").value;
-  if(!grade) { alert("Vui lòng chọn khối lớp trước khi yêu cầu AI tạo đề!"); return; }
-  $("examTopic").value = "Đang tạo đề bằng AI...";
+  if(!grade) { alert("Vui lòng chọn khối lớp trước để AI định hình đề thi!"); return; }
+  $("examTopic").value = "Đang tạo đề mới bằng AI...";
   try {
     const r = await fetch(API_URL, {method: "POST", body: JSON.stringify({action: "generate_prompt", grade: grade})});
     const j = await r.json();
     if(j.ok) { $("examTopic").value = j.prompt; }
-    else { $("examTopic").value = "Phân tích đoạn thơ trữ tình và nêu cảm nhận cá nhân về tác phẩm."; }
+    else { $("examTopic").value = "Phân tích đoạn văn bản nghị luận xã hội về ý chí vươn lên trong nghịch cảnh."; }
   } catch(e) {
-    $("examTopic").value = "Phân tích đoạn văn bản nghị luận xã hội về tinh thần vượt khó.";
+    $("examTopic").value = "Phân tích đoạn thơ trữ tình và nêu cảm nhận cá nhân.";
   }
 }
 
+// Nộp bài
 $("form").addEventListener("submit", async e=>{
   e.preventDefault();
   const btn=$("submitBtn"); btn.disabled=true; btn.textContent="AI ĐANG CHẤM VÀ GỬI THƯ...";
@@ -134,88 +162,88 @@ $("form").addEventListener("submit", async e=>{
     const r = await fetch(API_URL, {method:"POST", body:JSON.stringify(data)});
     const j = await r.json();
     if(j.ok){
-      showMsg($("msg"),"Thành công! AI đã chấm điểm và gửi thư nhận xét tự động đến email của bạn.",true);
+      showMsg($("msg"),"Nộp bài thành công! AI đã chấm điểm và gửi thư nhận xét tự động vào email của bạn.",true);
       $("aiSuggestion").innerHTML = `🎯 <b>Kết quả AI chấm điểm:</b> ${j.score}`;
       $("form").reset();
-      if(sessionStorage.admin) { loadData(); }
+      // Tự động sinh đề mới sau khi nộp xong để chuẩn bị cho lần tiếp theo
     } else showMsg($("msg"), j.error || "Không thể gửi dữ liệu.");
   }catch(err){showMsg($("msg"),"Lỗi kết nối máy chủ trực tuyến.");}
   btn.disabled=false;btn.textContent="NỘP BÀI, CHẤM ĐIỂM & GỬI THƯ";
 });
 
-// Kiểm tra hiển thị trang Quản trị khi có ?admin=1 trên URL
-if(new URLSearchParams(location.search).get("admin")==="1"){
-  $("formView").style.display="none"; $("loginView").style.display="block";
+// Điều hướng Admin
+function openAdminLogin(e){
+  e.preventDefault();
+  $("formView").style.display="none";
+  $("loginView").style.display="block";
 }
-function login(){
-  if($("adminPass").value===ADMIN_PASSWORD){
-    sessionStorage.admin="1"; $("loginView").style.display="none"; $("adminView").style.display="block"; loadData();
-  }else showMsg($("loginMsg"),"Sai mật khẩu quản trị.");
+function backToHome(){
+  $("formView").style.display="block";
+  $("loginView").style.display="none";
+  $("adminView").style.display="none";
 }
-function logout(){sessionStorage.removeItem("admin");location.href=location.pathname}
+function loginAdmin(){
+  if($("adminPass").value === ADMIN_PASSWORD){
+    sessionStorage.adminLogged = "1";
+    $("loginView").style.display="none";
+    $("adminView").style.display="block";
+    loadAdminData();
+  } else {
+    showMsg($("loginMsg"), "Sai mật khẩu quản trị viên!");
+  }
+}
+function logoutAdmin(){
+  sessionStorage.removeItem("adminLogged");
+  backToHome();
+}
 
-async function loadData(){
-  if(!sessionStorage.admin)return;
+// Tải dữ liệu Quản trị
+async function loadAdminData(){
   try{
-    const r = await fetch(API_URL+"?action=list&key="+encodeURIComponent(ADMIN_PASSWORD));
+    const r = await fetch(API_URL + "?action=list&key=" + encodeURIComponent(ADMIN_PASSWORD));
     const j = await r.json();
-    if(!j.ok)throw Error(j.error);
+    if(!j.ok) throw Error(j.error);
     window.adminData = j.data;
-    $("rows").innerHTML = j.data.map((x, idx)=>`
+    $("adminRows").innerHTML = j.data.map((x, idx)=>`
       <tr>
         <td><b>${esc(x.name)}</b></td>
         <td>${esc(x.email)}</td>
         <td>${esc(x.grade)}</td>
         <td>${esc(x.packageType)}</td>
-        <td>${esc(x.examTopic)}</td>
+        <td style="max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(x.examTopic)}">${esc(x.examTopic)}</td>
         <td><b>${esc(x.score)}</b></td>
         <td>${esc(x.time)}</td>
         <td>
-          <button class="btn-sm secondary" onclick="editRow(${idx})">Sửa</button>
-          <button class="btn-sm btn-danger" onclick="deleteRow('${esc(x.name)}')">Xóa</button>
+          <button class="btn-sm btn-danger" onclick="deleteStudent('${esc(x.name)}')">Xóa</button>
         </td>
       </tr>`).join("");
-  }catch(e){alert("Không tải được dữ liệu: "+e.message)}
+  }catch(e){alert("Không tải được dữ liệu quản trị: "+e.message)}
 }
 
-function editRow(idx){
-  const item = window.adminData[idx];
-  $("name").value = item.name;
-  $("name").readOnly = true;
-  $("email").value = item.email;
-  $("grade").value = item.grade;
-  $("packageType").value = item.packageType;
-  $("examTopic").value = item.examTopic;
-  $("content").value = item.content;
-  $("formView").style.display = "block";
-  $("adminView").style.display = "none";
-  $("formTitle").textContent = "Chỉnh sửa bài làm của: " + item.name;
-}
-
-function resetFormToCreate(){
-  $("form").reset();
-  $("name").readOnly = false;
-  $("formTitle").textContent = "✍️ Tạo Đề, Chấm Bài & Gửi Thư Cùng AI";
-  $("formView").style.display = "block";
-  $("adminView").style.display = "none";
-}
-
-async function deleteRow(name){
+async function deleteStudent(name){
   if(!confirm("Bạn có chắc chắn muốn xóa học viên " + name + " không?")) return;
   try{
     const r = await fetch(API_URL, {method: "POST", body: JSON.stringify({action: "delete", name: name, key: ADMIN_PASSWORD})});
     const j = await r.json();
-    if(j.ok) { loadData(); } else { alert(j.error); }
+    if(j.ok) { loadAdminData(); } else { alert(j.error); }
   }catch(err){alert("Lỗi khi xóa học viên.");}
 }
 
 function exportCSV(){
-  const data = window.adminData || []; if(!data.length)return alert("Chưa có dữ liệu.");
-  const rows = [["Học viên", "Email", "Khối lớp", "Gói cước", "Đề bài", "Kết quả AI", "Thời gian"], ...data.map(x=>[x.name, x.email, x.grade, x.packageType, x.examTopic, x.score, x.time])];
+  const data = window.adminData || []; if(!data.length) return alert("Chưa có dữ liệu để xuất.");
+  const rows = [["Học viên", "Email", "Khối lớp", "Gói cước", "Đề bài", "Điểm & Nhận xét", "Thời gian"], ...data.map(x=>[x.name, x.email, x.grade, x.packageType, x.examTopic, x.score, x.time])];
   const csv = "\ufeff" + rows.map(r=>r.map(v=>`"${String(v??"").replaceAll('"','""')}"`).join(",")).join("\n");
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})); a.download="quan_ly_hoc_vien.csv"; a.click();
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})); a.download="danh_sach_lam_bai_hoc_vien.csv"; a.click();
 }
+
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+// Tự động mở trang Admin nếu lưu session trước đó
+if(sessionStorage.adminLogged === "1"){
+  $("formView").style.display="none";
+  $("adminView").style.display="block";
+  loadAdminData();
+}
 </script>
 </body>
 </html>
